@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Big Trip</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700,800,900&amp;subset=cyrillic-ext" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/normalize.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.7/flatpickr.min.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+  <style>
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-5px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(5px);
+      }
+    }
+    .shake {
+      animation: shake 0.6s;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="content-wrap header__wrap">
+    <section class="trip">
+      <div class="trip__schedule">
+        <i class="trip-icon">⛰️</i>
+        <h1 class="trip__points">Amsterdam&nbsp;&mdash; Geneva&nbsp;&mdash;  Chamonix</h1>
+        <p class="trip__dates">Mar 17&nbsp;&mdash; 19</p>
+      </div>
+      <p class="trip__total"></p>
+    </section>
+
+    <section class="trip-controls">
+      <nav class="trip-controls__menus view-switch">
+        <a href="#table" class="view-switch__item view-switch__item--active">Table</a>
+        <a href="#stats" class="view-switch__item">Stats</a>
+
+        <form class="trip-filter">
+        </form>
+      </nav>
+
+      <button class="trip-controls__new-event new-event">+ New Event</button>
+    </section>
+  </div>
+</header>
+
+
+<main class="main content-wrap" id="table">
+  <form class="trip-sorting">
+  </form>
+
+  <section class="trip-points">
+  </section>
+</main>
+<script src="./bundle.js"></script>
+<script>
+  navigator.serviceWorker.register(`./sw.js`)
+    .then(function(reg) {
+      console.log(`Registration succeeded. Scope is ${reg.scope}`);
+    })
+    .catch(function(error) {
+      console.log(`Registration failed with ${error}`);
+    });
+</script>
+
+</body>
+</html>
