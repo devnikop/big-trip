@@ -1,6 +1,9 @@
+import { makeElement, removeChildren, getRandomNumber } from "./util";
 import getFilterHtml from "./make-filter";
 import makeTripPoint from "./make-trip-point";
-import { makeElement, removeChildren, getRandomNumber } from "./util";
+import { getTripPointData } from "./data";
+
+console.log(getTripPointData(1));
 
 const Selector = {
   TRIP_FILTER: `.trip-filter`,

@@ -13,5 +13,16 @@ const removeChildren = parentNode => {
 };
 
 const getRandomNumber = max => Math.ceil(Math.random() * max);
+const getRandomFloorNumber = max => Math.floor(Math.random() * max);
 
-export { capitalizeString, makeElement, removeChildren, getRandomNumber };
+const getRandomArrayItem = array =>
+  array[Math.floor(Math.random() * array.length)];
+
+export {
+  capitalizeString,
+  getRandomArrayItem,
+  getRandomFloorNumber,
+  getRandomNumber,
+  makeElement,
+  removeChildren
+};
