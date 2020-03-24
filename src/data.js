@@ -1,17 +1,6 @@
 import { getRandomArrayItem, getRandomFloorNumber } from "./util";
 
-// const Waypoint = new Map([
-//   [`taxi`, `🚕`],
-//   [`bus`, `🚌`],
-//   [`train`, `🚂`],
-//   [`ship`, `🛳️`],
-//   [`transport`, `🚊`],
-//   [`drive`, `🚗`],
-//   [`flight`, `✈️`],
-//   [`check-in`, `🏨`],
-//   [`sightseeing`, `🏛️`],
-//   [`restaurant`, `🍴`]
-// ]);
+const TRIP_POINTS_COUNT = 20;
 
 const mockData = {
   waypointList: [
@@ -50,7 +39,7 @@ const mockData = {
   },
 
   get offers() {
-    return this.offerList.slice(0, getRandomFloorNumber(2));
+    return this.offerList.slice(0, getRandomFloorNumber(3));
   },
 
   get description() {
@@ -66,11 +55,11 @@ const mockData = {
   },
 
   get price() {
-    return `€ ${getRandomFloorNumber(50)}`;
+    return getRandomFloorNumber(50);
   }
 };
 
-const getTripPointData = index => ({
+const createTripPointData = index => ({
   id: index,
   waypoint: mockData.waypoint,
   endpoint: mockData.endpoint,
@@ -81,4 +70,10 @@ const getTripPointData = index => ({
   price: mockData.price
 });
 
-export { getTripPointData };
+const getTripPointList = () => {
+  return Array.from({ length: TRIP_POINTS_COUNT }, (item, index) =>
+    createTripPointData(index)
+  );
+};
+
+export { getTripPointList };

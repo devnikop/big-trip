@@ -1,9 +1,7 @@
 import { makeElement, removeChildren, getRandomNumber } from "./util";
 import getFilterHtml from "./make-filter";
 import makeTripPoint from "./make-trip-point";
-import { getTripPointData } from "./data";
-
-console.log(getTripPointData(1));
+import { getTripPointList } from "./data";
 
 const Selector = {
   TRIP_FILTER: `.trip-filter`,
@@ -40,27 +38,28 @@ $tripFilter.appendChild(filterElementList);
 
 // tripPoint module
 
-const TRIP_POINTS_COUNT = 4;
+const TRIP_POINTS_MAX = 5;
 
-const createTripPointElement = () => {
-  return makeElement(makeTripPoint());
+const createTripPointElement = tripPoint => {
+  return makeElement(makeTripPoint(tripPoint));
 };
 
-const createTripPointElementList = tripPointsCount => {
+const createTripPointElementList = tripPointsMax => {
   const fragment = document.createDocumentFragment();
-  [...Array(tripPointsCount)].forEach(() => {
-    const tripPointElement = createTripPointElement();
+  const tripPointList = getTripPointList();
+  tripPointList.slice(0, tripPointsMax).forEach(tripPoint => {
+    const tripPointElement = createTripPointElement(tripPoint);
     fragment.appendChild(tripPointElement);
   });
   return fragment;
 };
 
-const addTripPointElements = tripPointsCount => {
-  const tripPointElementList = createTripPointElementList(tripPointsCount);
+const addTripPointElements = tripPointsMax => {
+  const tripPointElementList = createTripPointElementList(tripPointsMax);
   $tripDayItems.appendChild(tripPointElementList);
 };
 
-addTripPointElements(TRIP_POINTS_COUNT);
+addTripPointElements(TRIP_POINTS_MAX);
 
 // tripPoint module End
 
