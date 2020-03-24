@@ -1,7 +1,8 @@
 import { makeElement, removeChildren, getRandomNumber } from "./util";
 import getFilterHtml from "./make-filter";
-import makeTripPoint from "./make-trip-point";
+// import makeTripPoint from "./make-trip-point";
 import { getTripPointList } from "./data";
+import TripPoint from "./trip-point";
 
 const Selector = {
   TRIP_FILTER: `.trip-filter`,
@@ -40,8 +41,11 @@ $tripFilter.appendChild(filterElementList);
 
 const TRIP_POINTS_MAX = 5;
 
-const createTripPointElement = tripPoint => {
-  return makeElement(makeTripPoint(tripPoint));
+const createTripPointElement = tripPointData => {
+  const tripPointComponent = new TripPoint(tripPointData);
+
+  tripPointComponent.render();
+  return tripPointComponent.element;
 };
 
 const createTripPointElementList = tripPointsMax => {

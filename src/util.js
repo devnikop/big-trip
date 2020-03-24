@@ -12,6 +12,12 @@ const removeChildren = parentNode => {
   }
 };
 
+const createElement = template => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+  return newElement.firstElementChild;
+};
+
 const getRandomNumber = max => Math.ceil(Math.random() * max);
 const getRandomFloorNumber = max => Math.floor(Math.random() * max);
 
@@ -20,6 +26,7 @@ const getRandomArrayItem = array =>
 
 export {
   capitalizeString,
+  createElement,
   getRandomArrayItem,
   getRandomFloorNumber,
   getRandomNumber,
