@@ -1,4 +1,4 @@
-import { createElement } from "./util";
+import { Component } from "./component";
 
 const Waypoint = new Map([
   [`taxi`, `🚕`],
@@ -13,8 +13,10 @@ const Waypoint = new Map([
   [`restaurant`, `🍴`]
 ]);
 
-export default class TripPoint {
+export default class TripPoint extends Component {
   constructor(props) {
+    super();
+
     this._id = props.id;
     this._waypoint = props.waypoint;
     this._endpoint = props.endpoint;
@@ -24,17 +26,12 @@ export default class TripPoint {
     this._time = props.time;
     this._price = props.price;
 
-    this._element = null;
     this._onClick = null;
     this._onTripPointClick = this._onTripPointClick.bind(this);
   }
 
   _onTripPointClick() {
     typeof this._onClick === `function` && this._onClick();
-  }
-
-  get element() {
-    return this._element;
   }
 
   get template() {
@@ -76,18 +73,7 @@ export default class TripPoint {
     this._element.addEventListener(`click`, this._onTripPointClick);
   }
 
-  render() {
-    this._element = createElement(this.template);
-    this._bind();
-    return this.element;
-  }
-
   _unbind() {
     this._element.removeEventListener(`click`, this._onTripPointClick);
-  }
-
-  unrender() {
-    this._unbind();
-    this._element = null;
   }
 }

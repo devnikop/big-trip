@@ -1,4 +1,4 @@
-import { createElement } from "./util";
+import { Component } from "./component";
 
 const Waypoint = new Map([
   [`taxi`, `🚕`],
@@ -13,8 +13,10 @@ const Waypoint = new Map([
   [`restaurant`, `🍴`]
 ]);
 
-export default class TripPointEdit {
+export default class TripPointEdit extends Component {
   constructor(props) {
+    super();
+
     this._id = props.id;
     this._waypoint = props.waypoint;
     this._endpoint = props.endpoint;
@@ -24,14 +26,9 @@ export default class TripPointEdit {
     this._time = props.time;
     this._price = props.price;
 
-    this._element = null;
     this._onSubmit = null;
 
     this._onFormSubmit = this._onFormSubmit.bind(this);
-  }
-
-  get element() {
-    return this._element;
   }
 
   get template() {
@@ -312,18 +309,9 @@ export default class TripPointEdit {
       .addEventListener(`submit`, this._onFormSubmit);
   }
 
-  render() {
-    this._element = createElement(this.template);
-    this._bind();
-    return this.element;
-  }
-
   _unbind() {
-    // unbind events
-  }
-
-  unrender() {
-    this._unbind();
-    this._element = null;
+    this.element
+      .querySelector(`form`)
+      .removeEventListener(`submit`, this._onFormSubmit);
   }
 }
