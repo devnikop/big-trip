@@ -25,6 +25,12 @@ export default class TripPoint {
     this._price = props.price;
 
     this._element = null;
+    this._onClick = null;
+    this._onTripPointClick = this._onTripPointClick.bind(this);
+  }
+
+  _onTripPointClick() {
+    typeof this._onClick === `function` && this._onClick();
   }
 
   get element() {
@@ -62,8 +68,12 @@ export default class TripPoint {
     `;
   }
 
+  set onClick(cb) {
+    this._onClick = cb;
+  }
+
   _bind() {
-    // events
+    this._element.addEventListener(`click`, this._onTripPointClick);
   }
 
   render() {
@@ -73,7 +83,7 @@ export default class TripPoint {
   }
 
   _unbind() {
-    // unbind events
+    this._element.removeEventListener(`click`, this._onTripPointClick);
   }
 
   unrender() {
