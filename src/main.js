@@ -54,7 +54,11 @@ const createTripPointElement = tripPointData => {
     tripPointComponent.unrender();
   };
 
-  tripPointEditComponent.onSubmit = () => {
+  tripPointEditComponent.onSubmit = newData => {
+    tripPointData = { ...tripPointData, ...newData };
+
+    tripPointComponent.update(tripPointData);
+
     tripPointComponent.render();
     $tripDayItems.replaceChild(
       tripPointComponent.element,

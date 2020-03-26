@@ -31,4 +31,6 @@ export class Component {
     this._unbind();
     this._element = null;
   }
+
+  update() {}
 }

@@ -27,11 +27,8 @@ export default class TripPoint extends Component {
     this._price = props.price;
 
     this._onClick = null;
-    this._onTripPointClick = this._onTripPointClick.bind(this);
-  }
 
-  _onTripPointClick() {
-    typeof this._onClick === `function` && this._onClick();
+    this._onTripPointClick = this._onTripPointClick.bind(this);
   }
 
   get template() {
@@ -75,5 +72,19 @@ export default class TripPoint extends Component {
 
   _unbind() {
     this._element.removeEventListener(`click`, this._onTripPointClick);
+  }
+
+  update(data) {
+    this._waypoint = data.waypoint;
+    this._endpoint = data.endpoint;
+    this._picture = data.picture;
+    this._offers = data.offers;
+    this._day = data.day;
+    this._time = data.time;
+    this._price = data.price;
+  }
+
+  _onTripPointClick() {
+    typeof this._onClick === `function` && this._onClick();
   }
 }

@@ -1,3 +1,5 @@
+import flatpickr from "flatpickr";
+
 import { Component } from "./component";
 
 const Waypoint = new Map([
@@ -25,6 +27,8 @@ export default class TripPointEdit extends Component {
     this._day = props.day;
     this._time = props.time;
     this._price = props.price;
+
+    this._state = {};
 
     this._onSubmit = null;
 
@@ -148,21 +152,16 @@ export default class TripPointEdit extends Component {
               </datalist>
             </div>
 
-            <label class="point__time">
+            <div class="point__time">
               choose time
-              <input
-                class="point__input"
-                type="text"
-                value="00:00 — 00:00"
-                name="time"
-                placeholder="00:00 — 00:00"
-              />
-            </label>
+              <input class="point__input" type="text" value="19:00" name="date-start" placeholder="19:00">
+              <input class="point__input" type="text" value="21:00" name="date-end" placeholder="21:00">
+            </div>
 
             <label class="point__price">
               write price
               <span class="point__price-currency">€</span>
-              <input class="point__input" type="text" value="160" name="price" />
+              <input class="point__input" type="text" value=${this._price} name="price" />
             </label>
 
             <div class="point__buttons">
@@ -294,24 +293,86 @@ export default class TripPointEdit extends Component {
     this._onSubmit = cb;
   }
 
-  _onFormSubmit(evt) {
-    if (!(typeof this._onSubmit === `function`)) {
-      return;
+  _partialUpdate() {
+    this._unbind();
+    this.element.innerHTML = this.template;
+    this.bind();
+  }
+
+  _processForm(formData) {
+    const entry = {
+      waypoint: ``,
+      endpoint: ``,
+      picture: ``,
+      offers: [],
+      // time: ``,
+      price: ``
+    };
+
+    const tripPointEditMapper = TripPointEdit.createMapper(entry);
+    for (const pair of formData.entries()) {
+      const [prop, value] = pair;
+      tripPointEditMapper[prop] && tripPointEditMapper[prop](value);
     }
 
-    evt.preventDefault();
-    this._onSubmit();
+    return entry;
   }
 
   _bind() {
     this.element
       .querySelector(`form`)
       .addEventListener(`submit`, this._onFormSubmit);
+
+    const $timeInputs = this.element.querySelectorAll(`.point__time input`);
+
+    flatpickr($timeInputs[0], {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      onChange: function() {}
+    });
+
+    flatpickr($timeInputs[1], {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true
+    });
   }
 
   _unbind() {
     this.element
       .querySelector(`form`)
       .removeEventListener(`submit`, this._onFormSubmit);
+  }
+
+  update(data) {
+    this._waypoint = data.waypoint;
+    this._endpoint = data.endpoint;
+    this._picture = data.picture;
+    this._offers = data.offers;
+    this._day = data.day;
+    this._time = data.time;
+    this._price = data.price;
+  }
+
+  _onFormSubmit(evt) {
+    if (!(typeof this._onSubmit === `function`)) {
+      return;
+    }
+
+    evt.preventDefault();
+    const formData = new FormData(this.element.querySelector(`form`));
+    const newData = this._processForm(formData);
+
+    this._onSubmit(newData);
+    this.update(newData);
+  }
+
+  static createMapper(target) {
+    return {
+      price: value => (target.price = value)
+    };
   }
 }
