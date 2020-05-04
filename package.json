@@ -1,14 +1,7 @@
 {
   "name": "big-trip",
   "version": "1.0.0",
-  "private": true,
-  "description": "Личный проект «Большое путешествие» от HTML Academy",
-  "scripts": {
-    "build": "webpack",
-    "eslint": "eslint src/**/*.js",
-    "start": "webpack-dev-server --open",
-    "test": "npm run eslint"
-  },
+  "description": "",
   "devDependencies": {
     "eslint": "5.13.0",
     "flatpickr": "4.6.3",
@@ -16,6 +9,12 @@
     "webpack": "4.29.5",
     "webpack-cli": "3.2.3",
     "webpack-dev-server": "3.2.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "eslint": "eslint src/**/*.js",
+    "start": "webpack-dev-server --open",
+    "test": "npm run eslint"
   },
   "engines": {
     "node": "10"
