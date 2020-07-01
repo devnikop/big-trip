@@ -10,11 +10,12 @@
 * [General info](#General-info)
 * [Technologies](#Technologies)
 * [Setup](#Setup)
-* [Features](#Features)
+* [Inspiration](#Features)
+* [License](#License)
 
 ## General info
 
-This web application was created for mastering js.
+This web application was created for mastering base js. It has no real use.
 
 ## Technologies
 
@@ -35,14 +36,6 @@ To run this project, install it locally using npm:
 npm run install
 npm run start
 ```
-
-## Features
-
-* This app has no real use, it was created only to practice with some technologies.
-
-### To do
-
-* nothing to do yet)
 
 ## Inspiration
 
